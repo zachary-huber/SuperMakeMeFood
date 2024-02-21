@@ -1,0 +1,138 @@
+[gd_scene load_steps=18 format=3 uid="uid://dcxktqhsuknsc"]
+
+[ext_resource type="Texture2D" uid="uid://dnp1n8dm6c74r" path="res://icon.svg" id="1_ius0f"]
+[ext_resource type="Script" path="res://3D/scripts/player_b.gd" id="1_n4v55"]
+[ext_resource type="PackedScene" uid="uid://cu8434c7ica0o" path="res://scenes/creature/creature_visual.tscn" id="2_37q4h"]
+[ext_resource type="Texture2D" uid="uid://824qt5wgmk5a" path="res://assets/textures/feather-2.png" id="3_kdw1f"]
+[ext_resource type="Texture2D" uid="uid://bem5be03se0ar" path="res://assets/textures/feather-3.png" id="4_5pmmo"]
+[ext_resource type="Texture2D" uid="uid://dcdrfwjjkwm1w" path="res://assets/textures/feather-4.png" id="5_iephx"]
+[ext_resource type="Texture2D" uid="uid://dhqerfxgisxrt" path="res://assets/textures/feather-5.png" id="6_704yu"]
+[ext_resource type="Texture2D" uid="uid://bh5dnnrqfcm22" path="res://assets/textures/feather-1.png" id="7_mn3jn"]
+[ext_resource type="AudioStream" uid="uid://cn8be6u5dfeo3" path="res://assets/audio/noise.wav" id="8_op8l3"]
+[ext_resource type="AudioStream" uid="uid://dkjqfhv2d2s6m" path="res://assets/audio/jump.wav" id="9_s83dx"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rdaij"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rg05e"]
+albedo_color = Color(0.156863, 0.403922, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_dlmva"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ooqyb"]
+radius = 0.375
+height = 0.75
+
+[sub_resource type="Curve" id="Curve_u0g2r"]
+_data = [Vector2(0, 0.422697), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_aoflv"]
+width = 64
+curve = SubResource("Curve_u0g2r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4y7dl"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(2.3, 0.28, 1)
+emission_shape = 1
+emission_sphere_radius = 20.0
+angle_min = -720.0
+angle_max = 720.0
+gravity = Vector3(0, 98, 0)
+radial_accel_min = -1.0
+radial_accel_max = 1.0
+scale_min = 0.03
+scale_max = 0.05
+alpha_curve = SubResource("CurveTexture_aoflv")
+turbulence_enabled = true
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_n4v55")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_rdaij")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_rg05e")
+mesh = SubResource("SphereMesh_dlmva")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.63589, 0)
+material_override = SubResource("StandardMaterial3D_rg05e")
+mesh = SubResource("SphereMesh_ooqyb")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 4.448, 8.243)
+
+[node name="CollisionShape2D" type="CollisionShape3D" parent="."]
+disabled = true
+
+[node name="Sprite2D" type="Sprite3D" parent="."]
+transform = Transform3D(0.23, 0, 0, 0, 0.23, 0, 0, 0, 0, 0, 0, 0)
+visible = false
+texture = ExtResource("1_ius0f")
+
+[node name="CreatureVisual" parent="." instance=ExtResource("2_37q4h")]
+transform = Transform3D(0.085, 0, 0, 0, 0.085, 0, 0, 0, 0, 0, 0, 0)
+
+[node name="Feather" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape3D" parent="Feather"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68, 0, 0)
+visible = false
+
+[node name="F2" type="Sprite3D" parent="Feather"]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0, 68, 0, 0)
+modulate = Color(0.6, 1, 0.639216, 0.823529)
+texture = ExtResource("3_kdw1f")
+
+[node name="F3" type="Sprite3D" parent="Feather"]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0, 68, 0, 0)
+modulate = Color(1, 0.976471, 0.709804, 0.823529)
+texture = ExtResource("4_5pmmo")
+
+[node name="F4" type="Sprite3D" parent="Feather"]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0, 68, 0, 0)
+modulate = Color(1, 0.741176, 0.541176, 0.823529)
+texture = ExtResource("5_iephx")
+
+[node name="F5" type="Sprite3D" parent="Feather"]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0, 68, 0, 0)
+modulate = Color(1, 0.501961, 0.501961, 0.823529)
+texture = ExtResource("6_704yu")
+
+[node name="F1" type="Sprite3D" parent="Feather"]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0, 68, 0, 0)
+modulate = Color(0.384314, 0.384314, 0.384314, 1)
+texture = ExtResource("7_mn3jn")
+
+[node name="GPUParticles2D" type="GPUParticles3D" parent="Feather"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.36, 0, 0)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_4y7dl")
+
+[node name="FNoise" type="AudioStreamPlayer2D" parent="Feather"]
+position = Vector2(70, 0)
+stream = ExtResource("8_op8l3")
+volume_db = -80.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[node name="Eaten" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 32
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape3D" parent="Eaten"]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+
+[node name="CollisionPolygon2D" type="CollisionShape3D" parent="."]
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_s83dx")

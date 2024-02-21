@@ -313,7 +313,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="CreatureVisual" type="Node2D"]
+[node name="CreatureVisual" type="Node3D"]
 script = ExtResource("1_v76tm")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

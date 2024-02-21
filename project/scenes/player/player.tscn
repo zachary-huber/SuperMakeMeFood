@@ -25,7 +25,7 @@ size = Vector2(80, 20)
 _data = [Vector2(0, 0.422697), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_aoflv"]
+[sub_resource type="CurveTexture" id="CurveTexture_pe3xh"]
 width = 64
 curve = SubResource("Curve_xn8ue")
 
@@ -41,7 +41,7 @@ radial_accel_min = -1.0
 radial_accel_max = 1.0
 scale_min = 0.03
 scale_max = 0.05
-alpha_curve = SubResource("CurveTexture_aoflv")
+alpha_curve = SubResource("CurveTexture_pe3xh")
 turbulence_enabled = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uo5iw"]
