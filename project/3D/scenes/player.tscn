@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dcxktqhsuknsc"]
+[gd_scene load_steps=19 format=3 uid="uid://dcxktqhsuknsc"]
 
 [ext_resource type="Texture2D" uid="uid://dnp1n8dm6c74r" path="res://icon.svg" id="1_ius0f"]
 [ext_resource type="Script" path="res://3D/scripts/player_b.gd" id="1_n4v55"]
@@ -10,6 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://bh5dnnrqfcm22" path="res://assets/textures/feather-1.png" id="7_mn3jn"]
 [ext_resource type="AudioStream" uid="uid://cn8be6u5dfeo3" path="res://assets/audio/noise.wav" id="8_op8l3"]
 [ext_resource type="AudioStream" uid="uid://dkjqfhv2d2s6m" path="res://assets/audio/jump.wav" id="9_s83dx"]
+
+[sub_resource type="Curve" id="Curve_d4ghg"]
+_data = [Vector2(0, 1), 0.0, -0.0563557, 0, 0, Vector2(1, 0), -0.295066, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rdaij"]
 
@@ -45,8 +49,15 @@ scale_max = 0.05
 alpha_curve = SubResource("CurveTexture_aoflv")
 turbulence_enabled = true
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("feather")]
 script = ExtResource("1_n4v55")
+fcurve = SubResource("Curve_d4ghg")
+move_speed = 20.0
+jump_height = 5.0
+jump_time_to_peak = 0.4
+jump_time_to_descent = 0.5
+feather = NodePath("Feather")
+feather_impact = Vector3(10000, 500, 200)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_rdaij")

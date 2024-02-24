@@ -65,7 +65,7 @@ scale = Vector2(0.23, 0.23)
 texture = ExtResource("2_m3myx")
 
 [node name="CreatureVisual" parent="." instance=ExtResource("11_b677o")]
-scale = Vector2(0.085, 0.085)
+transform = Transform3D(0.085, 0, 0, 0, 0.085, 0, 0, 0, 0, 0, 0, 0)
 
 [node name="Feather" type="Area2D" parent="."]
 collision_layer = 4

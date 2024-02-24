@@ -35,7 +35,7 @@ const MAX_SPEED: float = 400.0
 
 #@onready var eaten_area: Area2D = $Eaten as Area3D
 #
-#@onready var jump_sound: AudioStreamPlayer2D = $Jump as AudioStreamPlayer3D
+@onready var jump_sound: AudioStreamPlayer3D = $Jump as AudioStreamPlayer3D
 #
 #@onready var feather_sound: AudioStreamPlayer2D = $Feather/FNoise as AudioStreamPlayer3D
 
@@ -69,6 +69,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("jump") and is_on_floor():
 			falling = false
 			jump()
+			print("Jumping")
 			#jump_sound.play()
 		
 		feather_func_one()
@@ -110,7 +111,7 @@ func _input(event: InputEvent) -> void:
 
 func feather_func_one() -> void:
 	f_vel = Vector3.ZERO
-	var r1: Vector3 = feather.position
+	var r1: Vector3 = feather.global_position
 	if keyboard_input:
 		var mpos = get_viewport().get_mouse_position()
 		feather.look_at(Vector3(mpos.x, mpos.y, 0))
