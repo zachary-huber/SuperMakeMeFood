@@ -1,8 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://dcxktqhsuknsc"]
+[gd_scene load_steps=18 format=3 uid="uid://dcxktqhsuknsc"]
 
 [ext_resource type="Texture2D" uid="uid://dnp1n8dm6c74r" path="res://icon.svg" id="1_ius0f"]
 [ext_resource type="Script" path="res://3D/scripts/player_b.gd" id="1_n4v55"]
-[ext_resource type="PackedScene" uid="uid://cu8434c7ica0o" path="res://scenes/creature/creature_visual.tscn" id="2_37q4h"]
 [ext_resource type="Texture2D" uid="uid://824qt5wgmk5a" path="res://assets/textures/feather-2.png" id="3_kdw1f"]
 [ext_resource type="Texture2D" uid="uid://bem5be03se0ar" path="res://assets/textures/feather-3.png" id="4_5pmmo"]
 [ext_resource type="Texture2D" uid="uid://dcdrfwjjkwm1w" path="res://assets/textures/feather-4.png" id="5_iephx"]
@@ -81,9 +80,6 @@ disabled = true
 transform = Transform3D(0.23, 0, 0, 0, 0.23, 0, 0, 0, 0, 0, 0, 0)
 visible = false
 texture = ExtResource("1_ius0f")
-
-[node name="CreatureVisual" parent="." instance=ExtResource("2_37q4h")]
-transform = Transform3D(0.085, 0, 0, 0, 0.085, 0, 0, 0, 0, 0, 0, 0)
 
 [node name="Feather" type="Area3D" parent="."]
 collision_layer = 4

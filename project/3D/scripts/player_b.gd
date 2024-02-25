@@ -5,17 +5,12 @@ const STAMINA_RATE: float = 3.0
 const MAX_SPEED: float = 400.0
 
 @export var fcurve: Curve
-
 @export var player_modulate: Color = Color.WHITE
-
 @export var move_speed: float = 200.0
-
 @export var jump_height: float
 @export var jump_time_to_peak: float
 @export var jump_time_to_descent: float
-
 @export var friction: float = 50.0
-
 @onready var jump_velocity: float = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
 @onready var jump_gravity: float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
 @onready var fall_gravity: float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
@@ -30,28 +25,19 @@ const MAX_SPEED: float = 400.0
 
 @onready var particles: GPUParticles3D = $Feather/GPUParticles2D as GPUParticles3D
 @onready var ftimer: Timer = $Timer as Timer
-
-@onready var visual: CreatureVisual = $CreatureVisual as CreatureVisual
-
-#@onready var eaten_area: Area2D = $Eaten as Area3D
-#
+#@onready var visual: CreatureVisual = $CreatureVisual as CreatureVisual
+@onready var eaten_area: Area3D = $Eaten as Area3D
 @onready var jump_sound: AudioStreamPlayer3D = $Jump as AudioStreamPlayer3D
-#
 #@onready var feather_sound: AudioStreamPlayer2D = $Feather/FNoise as AudioStreamPlayer3D
-
 @export var feather: Area3D
 @export var feather_impact: Vector3 = Vector3(10000, 500, 0)
 
 var eaten: bool = false
-
 var n_vel: Vector3 = Vector3()
 var f_vel: Vector3 = Vector3()
-
 var stamina: float = MAX_STAMINA
 var falling: bool = false
-
 var keyboard_input: bool = true
-
 signal player_died
 signal player_eaten
 
@@ -60,9 +46,10 @@ func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
+	print(position.y, " -- velocity: ", velocity)
 	if not eaten and Input.is_action_just_released("jump") and not falling:
 		falling = true
-	velocity.y += get_gravity() * delta
+	#velocity.y += get_gravity() * delta
 	if not eaten:
 		velocity.x = get_input_velocity() * move_speed
 		
@@ -86,14 +73,14 @@ func _physics_process(delta: float) -> void:
 	else:
 		move_and_slide()
 	
-	#visual.set_velocity(velocity, is_on_floor())
+	self.set_velocity(velocity)
 	
-	#if not eaten and velocity.y > 0:
-		#var eatens: Array = eaten_area.get_overlapping_areas()
-		#if eatens.size() > 0:
-			#Sounds.ate()
-			#eaten = true
-			#player_eaten.emit()
+	if not eaten and velocity.y > 0:
+		var eatens: Array = eaten_area.get_overlapping_areas()
+		if eatens.size() > 0:
+			Sounds.ate()
+			eaten = true
+			player_eaten.emit()
 			#var body: CreatureVisual = eatens.front().get_parent().get_parent().get_parent()
 			#if is_instance_valid(body) and body.has_method("mouth_mask"):
 				#body.mouth_mask()
@@ -122,7 +109,7 @@ func feather_func_one() -> void:
 	var vel: float = minf(abs(r1.angle_to(r2)), 0.025)
 	
 	#feather_sound.volume_db = fcurve.sample_baked(remap(vel, 0.0, 0.025, 0.0, 1.0)) * -80.0
-	var pos: Vector3 = lerp(r1, r2, 0.5)
+	var pos: Vector3 = lerp(r1, r2, 0)
 	if stamina > 0.0:
 		f_vel -= vel * pos
 		if not is_on_floor():
@@ -168,8 +155,8 @@ func jump() -> void:
 	var tween: Tween = create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_BACK)
-	visual.scale.x = 0.075
-	tween.tween_property(visual, "scale:x", 0.085, 1.0)
+	#visual.scale.x = 0.075
+	#tween.tween_property(visual, "scale:x", 0.085, 1.0)
 
 
 func get_input_velocity() -> float:

@@ -1,5 +1,5 @@
 class_name CreatureVisual
-extends Node3D
+extends Node2D
 
 @onready var visual: Node2D = $Node2D as Node2D
 @onready var move_legs: AnimatedSprite2D = $Node2D/Feet as AnimatedSprite2D

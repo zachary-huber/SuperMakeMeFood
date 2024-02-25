@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://doym0pfatrqqw"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_avx5k"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8fevw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p3p7c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rmujo"]
+albedo_color = Color(0.968627, 0.152941, 0.603922, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_qc5rl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_72pvy"]
+albedo_color = Color(1, 0.0941176, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f7tm2"]
+
+[node name="PlayerManager" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+script = ExtResource("1_avx5k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("CapsuleMesh_8fevw")
+skeleton = NodePath("../../PlayerMain")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_p3p7c")
+
+[node name="playerCam" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 8)
+
+[node name="featherPivot" type="Node3D" parent="CharacterBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/featherPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+material_override = SubResource("StandardMaterial3D_rmujo")
+mesh = SubResource("PrismMesh_qc5rl")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CharacterBody3D/featherPivot"]
+transform = Transform3D(0.13, 0, 0, 0, 1, 0, 0, 0, 0.52, 0, 1.04172, 0)
+material_override = SubResource("StandardMaterial3D_72pvy")
+mesh = SubResource("BoxMesh_f7tm2")
+
+[node name="Node3D" type="Node3D" parent="CharacterBody3D"]
+
+[node name="PlayerMain" type="Node3D" parent="."]
